@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Khizer Zakir</title>
+  <title>Khizer Zakir</title> 
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,6 +28,113 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Modal CSS for LaTeX CV -->
+  <style>
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 2% auto;
+      border: none;
+      width: 95%;
+      max-width: 1200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .modal-header {
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .modal-header h4 {
+      margin: 0;
+      color: #333;
+    }
+    
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+    }
+    
+    .modal-body {
+      padding: 0;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #0d6efd;
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: #0b5ed7;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background-color: #0d6efd;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5c636a;
+    }
+    
+    /* LaTeX CV Section Styles */
+    .latex-cv {
+      padding: 60px 0;
+      background-color: #f8f9fa;
+    }
+    
+    .latex-cv-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    @media (max-width: 768px) {
+      .latex-cv-container iframe {
+        height: 600px;
+      }
+    }
+  </style>
 
   <!-- =======================================================
   * Template Name: Personal
@@ -54,7 +161,8 @@
         <ul>
           <li><a class="nav-link active" href="#header">Home</a></li>
           <li><a class="nav-link" href="#about">About</a></li>
-          <li><a class="nav-link" href="#resume">Resume</a></li>
+          <!-- <li><a class="nav-link" href="#resume">Resume</a></li> -->
+          <li><a class="nav-link" href="#CV">CV</a></li>
           <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link" href="#blog">Blog</a></li>
           <li><a class="nav-link" href="#contact">Contact</a></li>
@@ -392,81 +500,32 @@
 
     
   </section><!-- End About Section -->
+ 
 
-  <!-- ======= Resume Section ======= -->
-  <section id="resume" class="resume">
+  <!-- ======= LaTeX CV Section ======= -->
+  <section id="CV" class="CV">
     <div class="container">
-
       <div class="section-title">
-        <h2>My Resume</h2>
-        <p><a href="https://drive.google.com/file/d/1zoLuFjii6z8tRsPnlEEMP89Lf8OzOWpH/view?usp=sharing" target="_blank"> &#128220;Resume Link</a></p>
+        <h2>CV</h2>
+        <p>Professional curriculum vitae</p>
       </div>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <h3 class="resume-title">Summary</h3>
-          <div class="resume-item pb-0">
-            <h4>Khizer Zakir</h4>
-            <p><em>I am a results-driven Geospatial Data Scientist with 6+ years of robust academic training and 2+ years of diverse professional experience in geospatial analytics, remote sensing, and machine learning. Having recently completed my dual MSc in GeoData Science, supported by a prestigious full Erasmus Mundus scholarship, I am currently actively seeking full-time opportunities that leverage my geospatial analytics and machine learning expertise to address environmental challenges.</em></p>
-            <p>
-            <ul>
-              <li>Salzburg, Austria</li>
-              <li>+43-677-648632-69</li>
-              <li>kizarzakir@gmail.com</li>
-            </ul>
-            </p>
-          </div>
-
-          <h3 class="resume-title">Education</h3>
-          <div class="resume-item">
-            <h4>Copernicus Master in Digital Earth - GeoData Science </h4>
-            <h5> Sep 2022 - July 2024</h5>
-            <p><em>University of Salzburg, Salzburg, AT</em></p>
-            <p><em>University of South Brittany, Vannes, FR</em></p>
-            <p> Awarded Erasmus Mundus Joint Master Degree Scholarship </p>
-            <p> Thesis: Deep Classification of Remote Sensing Time Series in the covariance matrices space</p>
-          </div>
-          <div class="resume-item">
-            <h4>Bachelor of Earth &amp; Environmental Sciences</h4>
-            <h5> Sep 2017 - June 2022</h5>
-            <p><em>University of Central Asia, Khorog, TJ</em></p>
-            <p>Thesis: Quantifying Risks of the Naturally Dammed Rivakkul Lake Using Geoinformatics & Geormorphological Concepts</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <h3 class="resume-title">Professional Experience</h3>
-          <div class="resume-item">
-            <h4>GIS &amp; Data Analyst</h4>
-            <h5>Feb 2024 - Present</h5>
-            <p><em> APAD (Research group at Oxford Smith School), Online </em></p>
-            <p>
-            <ul>
-              <li>Collected asset-level sources for air pollution, like brick kilns and power plants across the Indo-Gangetic Plain (IGP).</li>
-              <li>Performed geospatial analysis using GIS to analyze spatial data and identify patterns in air pollution distribution. 
-              </li>
-              <li>Developed storymaps and web mapping applications to visualize pollutant concentrations and trends.</li>
-              <li>Facilitated in designing an open-source asset-level database for air pollution emissions related analysis.</li>
-            </ul>
-            </p>
-          </div>
-          <div class="resume-item">
-            <h4>Research Assitant - Data Analyst</h4>
-            <h5>Apr 2023 - Aug 2023</h5>
-            <p><em>Riscognition, Munich, DE</em></p>
-            <p>
-            <ul>
-              <li>Focused on the relationship between lightning activity and forest fire risk to enhance predictive capabilities.</li>
-              <li>Designed investigations on the impact of Near Real-Time (NRT) lightning data on forest fires. </li>
-              <li>Integrated digital information derived from NRT lightning data into the development of a comprehensive risk 
-                assessment model. </li>
-            </ul>
-            </p>
-          </div>
+      
+      <div class="latex-cv-container">
+        <iframe src="latex-cv.html" 
+                style="width: 100%; height: 800px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                title="LaTeX Style CV">
+        </iframe>
+        <div class="cv-actions" style="text-align: center; margin-top: 20px;">
+          <a href="latex-cv.html" target="_blank" class="btn btn-primary">
+            <i class="bi bi-box-arrow-up-right"></i> Open in New Tab
+          </a>
+          <a href="latex-cv.html" download class="btn btn-secondary" style="margin-left: 10px;">
+            <i class="bi bi-download"></i> Download CV
+          </a>
         </div>
       </div>
-
     </div>
-  </section><!-- End Resume Section -->
+  </section><!-- End LaTeX CV Section -->
 
 <!-- ======= BLOG Section ======= -->
 <section id="blog" class="blog">
@@ -887,6 +946,43 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- LaTeX CV Modal JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('latexCVModal');
+      const btn = document.getElementById('showLatexCV');
+      const span = document.getElementsByClassName('close')[0];
+      
+      // Open modal when button is clicked
+      btn.onclick = function() {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+      
+      // Close modal when X is clicked
+      span.onclick = function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+      }
+      
+      // Close modal when clicking outside of it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+      }
+      
+      // Close modal with ESC key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+      });
+    });
+  </script>
 
 </body>
 

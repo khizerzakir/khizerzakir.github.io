@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khizer Zakir - LaTeX Style CV</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Computer+Modern:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Computer Modern', 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .cv-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .cv-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .cv-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        
+        .cv-title {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .cv-contact {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        
+        .cv-section {
+            margin-bottom: 30px;
+        }
+        
+        .cv-section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cv-item {
+            margin-bottom: 20px;
+        }
+        
+        .cv-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .cv-item-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        
+        .cv-item-duration {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cv-item-company {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .cv-item-description {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+        
+        .cv-responsibilities {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .cv-responsibilities li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .cv-responsibilities li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .cv-container {
+                box-shadow: none;
+                padding: 20px;
+                border-radius: 0;
+            }
+            
+            .controls {
+                display: none;
+            }
+        }
+        
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 2000;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="btn" onclick="downloadPDF()"> Download PDF</button>
+        <button class="btn btn-secondary" onclick="updateCV()"> Update CV</button>
+        <button class="btn btn-secondary" onclick="window.print()"> Print</button>
+    </div>
+    
+    <div class="loading" id="loading">Generating PDF...</div>
+    
+    <div class="cv-container" id="cv-content">
+        <!-- CV content will be dynamically loaded here -->
+    </div>
+
+    <script>
+        let cvData = {};
+        
+        // Load CV data from JSON file
+        async function loadCVData() {
+            try {
+                const response = await fetch('cv-data.json');
+                cvData = await response.json();
+                renderCV();
+            } catch (error) {
+                console.error('Error loading CV data:', error);
+                // Fallback data if JSON file is not available
+                loadFallbackData();
+            }
+        }
+        
+        function loadFallbackData() {
+            cvData = {
+                personalInfo: {
+                    name: "Khizer Zakir",
+                    title: "Geospatial Data Scientist",
+                    location: "Salzburg, Austria",
+                    phone: "+43-677-648632-69",
+                    email: "kizarzakir@gmail.com",
+                    linkedin: "khizer-zakir",
+                    github: "khizerzakir"
+                },
+                summary: "I am a results-driven Geospatial Data Scientist with 6+ years of robust academic training and 2+ years of diverse professional experience in geospatial analytics, remote sensing, and machine learning. Having recently completed my dual MSc in GeoData Science, supported by a prestigious full Erasmus Mundus scholarship, I am currently actively seeking full-time opportunities that leverage my geospatial analytics and machine learning expertise to address environmental challenges.",
+                education: [
+                    {
+                        degree: "Copernicus Master in Digital Earth - GeoData Science",
+                        duration: "Sep 2022 - July 2024",
+                        institutions: ["University of Salzburg, Salzburg, AT", "University of South Brittany, Vannes, FR"],
+                        achievement: "Awarded Erasmus Mundus Joint Master Degree Scholarship",
+                        thesis: "Deep Classification of Remote Sensing Time Series in the covariance matrices space"
+                    },
+                    {
+                        degree: "Bachelor of Earth & Environmental Sciences",
+                        duration: "Sep 2017 - June 2022",
+                        institutions: ["University of Central Asia, Khorog, TJ"],
+                        thesis: "Quantifying Risks of the Naturally Dammed Rivakkul Lake Using Geoinformatics & Geormorphological Concepts"
+                    }
+                ],
+                experience: [
+                    {
+                        position: "GIS & Data Analyst",
+                        duration: "Feb 2024 - Present",
+                        company: "APAD (Research group at Oxford Smith School), Online",
+                        responsibilities: [
+                            "Collected asset-level sources for air pollution, like brick kilns and power plants across the Indo-Gangetic Plain (IGP).",
+                            "Performed geospatial analysis using GIS to analyze spatial data and identify patterns in air pollution distribution.",
+                            "Developed storymaps and web mapping applications to visualize pollutant concentrations and trends.",
+                            "Facilitated in designing an open-source asset-level database for air pollution emissions related analysis."
+                        ]
+                    },
+                    {
+                        position: "Research Assistant - Data Analyst",
+                        duration: "Apr 2023 - Aug 2023",
+                        company: "Riscognition, Munich, DE",
+                        responsibilities: [
+                            "Focused on the relationship between lightning activity and forest fire risk to enhance predictive capabilities.",
+                            "Designed investigations on the impact of Near Real-Time (NRT) lightning data on forest fires.",
+                            "Integrated digital information derived from NRT lightning data into the development of a comprehensive risk assessment model."
+                        ]
+                    }
+                ]
+            };
+            renderCV();
+        }
+        
+        function renderCV() {
+            const container = document.getElementById('cv-content');
+            
+            container.innerHTML = `
+                <div class="cv-header">
+                    <h1 class="cv-name">${cvData.personalInfo.name}</h1>
+                    <div class="cv-title">${cvData.personalInfo.title}</div>
+                    <div class="cv-contact">
+                        <span> ${cvData.personalInfo.location}</span>
+                        <span> ${cvData.personalInfo.phone}</span>
+                        <span> ${cvData.personalInfo.email}</span>
+                        <span> linkedin.com/in/${cvData.personalInfo.linkedin}</span>
+                        <span> github.com/${cvData.personalInfo.github}</span>
+                    </div>
+                </div>
+                
+                <div class="cv-section">
+                    <h2 class="cv-section-title">Summary</h2>
+                    <div class="cv-item-description">${cvData.summary}</div>
+                </div>
+                
+                <div class="cv-section">
+                    <h2 class="cv-section-title">Education</h2>
+                    ${cvData.education.map(edu => `
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">${edu.degree}</div>
+                                <div class="cv-item-duration">${edu.duration}</div>
+                            </div>
+                            ${edu.institutions.map(inst => `<div class="cv-item-company">${inst}</div>`).join('')}
+                            ${edu.achievement ? `<div class="cv-item-description"><strong>${edu.achievement}</strong></div>` : ''}
+                            ${edu.thesis ? `<div class="cv-item-description"><strong>Thesis:</strong> ${edu.thesis}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="cv-section">
+                    <h2 class="cv-section-title">Professional Experience</h2>
+                    ${cvData.experience.map(exp => `
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">${exp.position}</div>
+                                <div class="cv-item-duration">${exp.duration}</div>
+                            </div>
+                            <div class="cv-item-company">${exp.company}</div>
+                            <ul class="cv-responsibilities">
+                                ${exp.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        async function downloadPDF() {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const element = document.getElementById('cv-content');
+                
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff'
+                });
+                
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+                const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                const imgX = (pdfWidth - imgWidth * ratio) / 2;
+                const imgY = 0;
+                
+                pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                pdf.save(`${cvData.personalInfo.name.replace(' ', '_')}_CV.pdf`);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again or use the print function.');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+        
+        function updateCV() {
+            const newData = prompt('Enter updated CV data as JSON (or press Cancel to reload from file):');
+            if (newData) {
+                try {
+                    cvData = JSON.parse(newData);
+                    renderCV();
+                    alert('CV updated successfully!');
+                } catch (error) {
+                    alert('Invalid JSON format. Please check your data.');
+                }
+            } else {
+                loadCVData();
+            }
+        }
+        
+        // Initialize the CV when page loads
+        window.addEventListener('DOMContentLoaded', loadCVData);
+    </script>
+</body>
+</html>
