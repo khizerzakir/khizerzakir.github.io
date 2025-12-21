@@ -20,7 +20,7 @@ body {
 body::before {
   content: "";
   position: fixed;
-  background: #040404 url("../img/tedx_2.jpg") top right no-repeat;
+  background: #040404 url("../img/try_back.jpg") top right no-repeat;
   background-size: cover;
   left: 0;
   right: 0;
@@ -1425,4 +1425,42 @@ section .container {
     line-height: 1.6;
 }
 
+/* ==============================
+   INNER PAGES (About, CV, Portfolio, Blog, Contact)
+   ============================== */
+
+.inner-page #header {
+  height: auto;
+  min-height: unset;
+  padding: 15px 0;
+  background: #0d0d0d;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* prevent index hero spacing */
+.inner-page #header h1,
+.inner-page #header h2,
+.inner-page #header .social-links {
+  display: none;
+}
+
+/* Make sections visible on inner pages */
+.inner-page section {
+  position: relative;
+  opacity: 1;
+  top: auto;
+  bottom: auto;
+  width: 100%;
+  padding-bottom: 45px;
+}
+
+/* push content below header */
+.inner-page section:first-of-type {
+  padding-top: 60px;
+  margin-top: 0;
+}
+
+.inner-page .navbar-mobile {
+  position: static;
+}
 

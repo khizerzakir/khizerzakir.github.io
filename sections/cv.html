@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CV - Khizer Zakir">
+
+  <title>CV - Khizer Zakir</title>
+
+  <link rel="icon" href="../assets/img/favicon.jpg">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.jpg">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <link href="../assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .cv-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .cv-container iframe {
+      width: 100%;
+      height: 800px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cv-actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .cv-actions a {
+      margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .cv-container iframe {
+        height: 600px;
+      }
+    }
+  </style>
+</head>
+
+<body class="inner-page cv-page">
+
+  <header id="header" style="padding: 20px 0; border-bottom: 1px solid #ddd;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center;">        <nav id="navbar" class="navbar" style="margin: 0;">
+          <ul style="margin: 0; list-style: none; display: flex; gap: 20px;">
+            <li><a class="nav-link" href="../index.html">Home</a></li>
+            <li><a class="nav-link" href="about.html">About</a></li>
+            <li><a class="nav-link active" href="cv.html">CV</a></li>
+            <li><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+            <li><a class="nav-link" href="blog.html">Blog</a></li>
+            <li><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+      </div>
+    </div>
+  </header>
+  </header>
+
+  <section id="CV" class="cv">
+    <div class="container">
+      <div class="section-title">
+        <h2>CV</h2>
+        <p>Professional curriculum vitae</p>
+      </div>
+
+      <div class="cv-container">
+        <iframe src="latex-cv.html" title="LaTeX Style CV"></iframe>
+        <div class="cv-actions">
+          <a href="latex-cv.html" target="_blank" class="btn btn-primary">
+            <i class="bi bi-box-arrow-up-right"></i> Open in New Tab
+          </a>
+          <a href="latex-cv.html" download class="btn btn-secondary">
+            <i class="bi bi-download"></i> Download CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Khizer Zakir. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

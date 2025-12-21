@@ -108,6 +108,12 @@ updateRepoCount();
    */
   on('click', '#navbar .nav-link', function(e) {
     let section = select(this.hash)
+    
+    // On inner pages, allow normal navigation
+    if (document.body.classList.contains('inner-page')) {
+      return;
+    }
+    
     if (section) {
       e.preventDefault()
 
@@ -154,6 +160,18 @@ updateRepoCount();
       }
 
       scrollto(this.hash)
+    } else {
+      // Allow normal navigation for links without hashes
+      let navbar = select('#navbar')
+      if (navbar && navbar.classList.contains('navbar-mobile')) {
+        navbar.classList.remove('navbar-mobile')
+        let navbarToggle = select('.mobile-nav-toggle')
+        if (navbarToggle) {
+          navbarToggle.classList.toggle('bi-list')
+          navbarToggle.classList.toggle('bi-x')
+        }
+      }
+      // Don't prevent default - let the link navigate normally
     }
   }, true)
 
@@ -161,6 +179,11 @@ updateRepoCount();
    * Activate/show sections on load with hash links
    */
   window.addEventListener('load', () => {
+    // Skip home-page logic on inner pages
+    if (document.body.classList.contains('inner-page')) {
+      return;
+    }
+
     if (window.location.hash) {
       let initial_nav = select(window.location.hash)
 
